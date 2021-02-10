@@ -95,19 +95,6 @@ class NumberThree extends Component {
     }
     this.setState({"alfabet": alphabet, "totalkeluar": value});
 
-    const Frameworks = (props) => {
-      return (
-        <view>
-          {props.items.data.map(item => (
-            <view key={item.id}>
-              <Text>{item.url}</Text>
-              <Text>{item.description}</Text>
-            </view>
-          ))}
-        </view>
-      )
-    }
-
     //rubahchar
     let codePoint = [];
     for (let index = 0; index < lower.length; index++) {
@@ -121,7 +108,7 @@ class NumberThree extends Component {
  
     return (
       <view>
-       <Text>{this.state}</Text>
+       <Text>{result}</Text>
       </view>
     );
   }
@@ -166,34 +153,10 @@ class NumberFour extends Component {
   }
 } 
 
-class Main extends Component {
-  constructor(props){
-    super(props);
-    this.state={
-      letter: "not clicked"
-    };
-  }
-  handleClick = () => {
-      this.setState({letter: "clicked"})
-  }
-  render() {
-    return (
-      <view>
-        <button onClick={this.handleClick}>Click Me</button>
-        <Text>Yea Yea{this.props.letter}</Text>
-        {/* <Button onPress={ HelloWorldApp.bind() } title=" Number one " />
-        <Button onPress={ HelloWorldApp.bind() } title=" Number two " />
-        <Button onPress={ HelloWorldApp.bind() } title=" Number three " />
-        <Button onPress={ HelloWorldApp.bind() } title=" Number four " /> */}
-      </view>
-    );
-  }
-} 
-
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
   },
 });
 
-export default NumberThree;
+export default NumberTwo;

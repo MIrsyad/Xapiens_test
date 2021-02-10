@@ -1,5 +1,22 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, Text, TextComponent, View, Alert  } from 'react-native';
+import { StyleSheet, Text,  View  } from 'react-native';
+
+class NumberOne extends Component {
+  render() {
+    const number = 1234567;
+    const arr = `${number}`.split('');
+    return (
+      <View>
+        {arr.map((char, key) => (
+          <Text>
+            {char}
+            {'0'.repeat(arr.length - (key + 1))}
+          </Text>
+        ))}
+      </View>
+    );
+  }
+}
 
 class NumberTwo extends Component {
   render() {
@@ -48,7 +65,8 @@ class NumberTwo extends Component {
     }
 
     return (
-      <view style={{alignItems: 'center'}}>
+      <View style={{alignItems: 'center'}}>
+
         <Text>sorted: {result[0]} |</Text>
         <Text>sum: {summedArray[0]} |</Text>
         <Text>average: {average[0]} |</Text>
@@ -64,91 +82,87 @@ class NumberTwo extends Component {
         <Text>average: {average[2]} |</Text>
         <Text>min: {min[2]} |</Text>
         <Text>max: {max[2]} {"\n"}</Text>
-      </view>
+      </View>
     );
   }
 }
 
 class NumberThree extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-    }
-  }
-
   render() {
     //data
-    const data = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras interdum mi eu magna fermentum, vel luctus tellus semper. Nunc dignissim eleifend ipsum, nec viverra mauris pellentesque non. Fusce auctor ex id mauris egestas, quis luctus nunc pharetra. Sed in dignissim nisi. Aliquam sed tempor urna, nec aliquam mi. Aenean eu feugiat lacus, vel dictum eros. Nulla condimentum porttitor aliquet. Vestibulum vehicula elit non arcu auctor maximus. Quisque est eros, maximus nec diam faucibus, mollis odio.";
+    const data =
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras interdum mi eu magna fermentum, vel luctus tellus semper. Nunc dignissim eleifend ipsum, nec viverra mauris pellentesque non. Fusce auctor ex id mauris egestas, quis luctus nunc pharetra. Sed in dignissim nisi. Aliquam sed tempor urna, nec aliquam mi. Aenean eu feugiat lacus, vel dictum eros. Nulla condimentum porttitor aliquet. Vestibulum vehicula elit non arcu auctor maximus. Quisque est eros, maximus nec diam faucibus, mollis odio.';
     const lower = data.toLowerCase();
 
     //hitung karakter
-    var alphabet=[];
-    var value=[];
+    var alphabets = {};
 
-    for (let index = 'a'; index <= 'z'; index++) {
-      let total=Array.from(lower).map(i => !!~i.indexOf(index))
-                .filter(i => i)
-                .length;
-      alphabet.push(index);
-      value.push(total);
+    for (let index = 'a'.charCodeAt(0); index <= 'z'.charCodeAt(0); index++) {
+      let total = Array.from(lower)
+        .map((i) => !!~i.indexOf(String.fromCharCode(index)))
+        .filter((i) => i).length;
+
+      alphabets[String.fromCharCode(index)] = total;
     }
-    this.setState({"alfabet": alphabet, "totalkeluar": value});
 
     //rubahchar
     let codePoint = [];
     for (let index = 0; index < lower.length; index++) {
-      codePoint[index]= lower.charCodeAt(index);
-      codePoint[index]=codePoint[index]+5;
-      codePoint[index]= String.fromCharCode(codePoint[index]);
+      codePoint[index] = lower.charCodeAt(index);
+      codePoint[index] = codePoint[index] + 5;
+      codePoint[index] = String.fromCharCode(codePoint[index]);
     }
-    let result= codePoint.join("");
+    let result = codePoint.join('');
     //menghilangkan % yang tadinya spasi, diganti menjadi spasi kembali supaya mudah terbaca
-    result = result.replace(/%/g," ");
- 
+    result = result.replace(/%/g, ' ');
+
     return (
-      <view>
-       <Text>{result}</Text>
-      </view>
+      <View>
+        {Object.keys(alphabets).map((alphabet) => (
+          <Text>{`Karakter ${alphabet.toUpperCase()} sebanyak ${
+            alphabets[alphabet]
+          } kali`}</Text>
+        ))}
+
+        <Text style={{ marginTop: 12 }}>{result}</Text>
+      </View>
     );
   }
-} 
+}
 
 class NumberFour extends Component {
-
+    
   render() {
-    const array=[];
-    const RandomNumber = Math.floor(Math.random() * 100) + 1 ;
 
-    for (let index = 1; index <= 100; index++) {
-      array[index]=index;
-    }
-
-    let startIndex = 0;
-    let endIndex = 99;
+    let min = 0;
+    let max = 100;
+    const RandomNumber = Math.floor(Math.random()*100);
     let count = 0;
     let indexFound;
-    while(startIndex <= endIndex) {
-      let middleIndex = Math.floor((startIndex + endIndex) / 2);
-      if(RandomNumber === array[middleIndex]) {
+    
+    while(min < max) {
+      let middleIndex = Math.floor((min + max) / 2);
+      if(RandomNumber === middleIndex) {
         count++;
         indexFound=middleIndex;
+        break;
       }
-      if(RandomNumber > array[middleIndex]) {
+      if(RandomNumber > middleIndex) {
         count++;
-        startIndex = middleIndex + 1;
+        min = middleIndex + 1;
       }
-      if(RandomNumber < array[middleIndex]) {
+      if(RandomNumber < middleIndex) {
         count++;
-        endIndex = middleIndex - 1;
+        max = middleIndex - 1;
       }
     console.log("Target ditemukan di index "+indexFound);
     }
     
     return (
-      <view>
-        <Text>target ditemukan di {indexFound} pada hitungan ke {count}</Text>
-      </view>
+      <View>
+        <Text>{RandomNumber}</Text> 
+        <Text>target ditemukan pada hitungan ke {count}</Text>
+      </View>
     );
   }
 } 
@@ -159,4 +173,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NumberTwo;
+export default NumberFour;
